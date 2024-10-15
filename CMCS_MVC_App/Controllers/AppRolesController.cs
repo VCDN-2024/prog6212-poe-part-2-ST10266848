@@ -24,6 +24,10 @@ namespace CMCS_MVC_App.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //if (User.IsInRole("HR"))
+            //{
+
+            //}
             return View();
         }
 

@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using CMCS_MVC_App.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -75,6 +76,34 @@ namespace CMCS_MVC_App.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+
+            [Required(ErrorMessage = "Enter Your First Name!")]
+            [StringLength(50, ErrorMessage = "First Name Cannot Exceed 50 Characters In Length!")]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "Last Name Is Required!")]
+            [StringLength(50, ErrorMessage = "Last Name Cannot Exceed 50 Characters In Length!")]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required(ErrorMessage = "Bank Name Is Required!")]
+            [StringLength(75, ErrorMessage = "Bank Name Cannot Exceed 75 Characters In Length!")]
+            [Display(Name = "Bank Name")]
+            public string BankName { get; set; }
+
+            [Required(ErrorMessage = "Account Holder Name Is Required!")]
+            [StringLength(50, ErrorMessage = "Account Holder Name Cannot Exceed 50 Characters In Length!")]
+            [Display(Name = "Account Holder Name")]
+            public string AccountHolderName { get; set; }
+
+            [Required(ErrorMessage = "Account Number Is Required!")]
+            [StringLength(12, MinimumLength = 8, ErrorMessage = "Account Number Must Be Between 8 and 12 Digits In Length!")]
+            [RegularExpression(@"^\d+$", ErrorMessage = "The bank account number must contain only digits!")]
+            [Display(Name = "Account Number")]
+            public string AccountNumber { get; set; }
+
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -146,6 +175,13 @@ namespace CMCS_MVC_App.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.BankName = Input.BankName;
+                user.AccountHolderName = Input.AccountHolderName;
+                user.AccountNumber = Input.AccountNumber;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -187,11 +223,11 @@ namespace CMCS_MVC_App.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
