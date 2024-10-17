@@ -10,6 +10,7 @@ namespace CMCS_MVC_App.Data
         {  
         }
 
+        public DbSet<Claim> Claims { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         
     }
