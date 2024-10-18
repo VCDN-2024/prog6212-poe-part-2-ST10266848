@@ -17,7 +17,7 @@ namespace CMCS_MVC_App.Models
 
         //Stores the number of hours that the lecturer has worked or claims to have worked
         [Required(ErrorMessage = "Hours Worked Is Required")]
-        [Range(1, 150, ErrorMessage = "Can Only Claim For Anywhere Between 1 hour (minimum) and 150 hours (maximum) Per Month!")]
+        [Range(1, 160, ErrorMessage = "Can Only Claim For Anywhere Between 1 hour (minimum) and 150 hours (maximum) Per Month!")]
         public int HoursWorked { get; set; }
 
         //Stores the hourly rate of all lecturers
@@ -28,7 +28,7 @@ namespace CMCS_MVC_App.Models
 
         //The result of the calculation involving both of the above fields
         //will be stored here
-        public double PaymentAmount { get; set; }
+        public double? PaymentAmount { get; set; }
 
         //Stores date when claim was submitted by lecturer
         public DateTime SubmissionDate { get; set; }
@@ -37,18 +37,18 @@ namespace CMCS_MVC_App.Models
         //regarding their monthly claim.
         //Not marked as Required as it is optional.
         [StringLength(750, ErrorMessage = "Max Character Limit Reached!")]
-        public string AdditionalNote { get; set; } = null!;
+        public string? AdditionalNote { get; set; }
 
         //The status of the claim would be stored here
         // There are 3 types of claim statuses (Pending, Approved, Rejected)
         public string Status { get; set; } = null!;
 
         //Stores the name of the pdf document, for displaying purposes
-        public string DocumentName { get; set; } = null!;
+        public string? DocumentName { get; set; }
 
         //Stores the actual content of the pdf document in an appropriate format
         //that can be stored in a local sql database
-        public byte[] DocumentContent { get; set; } = null!;
+        public byte[]? DocumentContent { get; set; }
 
         //Checks whether the claim was approved by the Programme Coordinator
         //Programme Coordinator is abreviated as PC here

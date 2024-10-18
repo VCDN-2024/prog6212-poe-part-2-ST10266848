@@ -31,6 +31,7 @@ namespace CMCS_MVC_App.Controllers
             return View();
         }
 
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Create(IdentityRole model)
         {

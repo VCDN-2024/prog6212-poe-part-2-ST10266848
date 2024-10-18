@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CMCS_MVC_App.Models.Claim>
 @{
-    ViewData["Title"] = "LecturerClaim";
+    ViewData["Title"] = "View Claim Requests";
 }
 
 <h2>Your Claims</h2>
@@ -13,6 +13,7 @@
             <th>Hours Worked</th>
             <th>Hourly Rate</th>
             <th>Additional Note</th>
+            <th>Document</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
@@ -26,20 +27,27 @@
                 <td>@claim.HoursWorked</td>
                 <td>@claim.HourlyRate</td>
                 <td>@claim.AdditionalNote</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(claim.DocumentName) && claim.DocumentContent != null)
+                    {
+                        //Display a downloadable link if the document exists
+                        <a href="@Url.Action("DownloadDocument", "Claims", new { id = claim.ClaimId })">@claim.DocumentName</a>
+                    }
+                    else
+                    {
+                        //Display a message if no document is associated with the claim
+                        <span>No supporting document provided</span>
+                    }
+                </td>
                 <td>@claim.Status</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@claim.ClaimId" class="btn btn-info">View</a>
-                    <a asp-action="Edit" asp-route-id="@claim.ClaimId" class="btn btn-warning">Edit</a>
+
                     <a asp-action="Delete" asp-route-id="@claim.ClaimId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this claim?');">Delete</a>
-                    @if (claim.Status == "Pending")
-                    {
-                        <a asp-action="ApproveClaim" asp-route-id="@claim.ClaimId" asp-route-status="Approved" class="btn btn-success">Approve</a>
-                        <a asp-action="RejectClaim" asp-route-id="@claim.ClaimId" asp-route-status="Rejected" class="btn btn-secondary" onclick="return confirm('Are you sure you want to reject this claim');">Reject</a>
-                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a asp-action="Create" class="btn btn-primary">Submit Claim</a>
+<a asp-action="SubmitClaim" class="btn btn-primary">Submit Claim</a>
