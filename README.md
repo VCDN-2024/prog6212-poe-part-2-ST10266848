@@ -199,11 +199,45 @@ This Contract Monthly Claims System (CMCS) allows lecturers to submit claims (by
 
 # Sprint 2:
 
+## Login Details of Users:
+### Lecturer:
+username: fshaik@vcconnect.edu.za
+password: 4)PBuM_Px9s43M@
+
+### Another Lecturer:
+username: mikewazowski@vcconnect.edu.za
+password: P?nC5S]ZryRw8Gj
+
+## Programme Coordinator:
+username: EbrahimAdams@vcconnect.edu.za
+password: A%2jER&6kecU>]2
+
+## Academic Manager:
+username: jamesmay@vcconnect.edu.za
+password: mN)fc,}3fNWg}Zh
+
+## HR:
+username: alicezuberg@vcconnect.edu.za
+password: XUDVm:5ia*2F>M#
+
 ## Assumptions that have remained the same:
 - **Uploading of Documents:** The app would ensure that documents are stored securely and are connected to the corresponding claim. 
  - **Data Integrity**: It is assumed that all input data  (such as hours worked and hourly rate) will be provided in a proper format and will be validated before being stored in the database.
 - **Pending Claims**  Coordinators and managers will have a separate view where all pending claims are displayed, along with the necessary details and options will be provided to allow them to verify or reject these claims
 - **Checking of claims against predefined criteria:** The app assumes that feature is a filtering feature that allows coordinators and managers to search for or display specific claims that meet a certain criteria.
-  
+- **Approval of claims**
 
 
+## Users and Roles:
+- Users and roles have been set up, using Microsoft's AspNetCore Identities
+- There are 4 roles: Lecturer, Programme Coordinator, Academic Manager and HR
+
+## Overall Database Structure:
+![image](https://github.com/user-attachments/assets/785601a6-03d7-4b2d-8d3b-6aae71f66bc3)
+
+### Focusing on Claims Table design structure as well it's connecion to the AspNetUsers table:
+![image](https://github.com/user-attachments/assets/cfaff95a-b065-41e8-b9a8-ba3e9128ae0a)
+
+![image](https://github.com/user-attachments/assets/9ba0805e-e14c-42f2-b017-c73f3b00e246)
+
+![image](https://github.com/user-attachments/assets/50cf192d-e39e-4abc-b005-81efde7b4082)
