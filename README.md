@@ -1,4 +1,82 @@
-# Sprint 1: Part 1 Project Documentation:
+# Sprint 2 - POE Part 2 Documentation:
+
+## Login Details of Users:
+## Lecturers:
+- username: fshaik@vcconnect.edu.za
+- password: 4)PBuM_Px9s43M@
+
+- username: mikewazowski@vcconnect.edu.za
+- password: P?nC5S]ZryRw8Gj
+
+## Programme Coordinator:
+- username: EbrahimAdams@vcconnect.edu.za
+- password: A%2jER&6kecU>]2
+
+## Academic Manager:
+- username: jamesmay@vcconnect.edu.za
+- password: mN)fc,}3fNWg}Zh
+
+## HR:
+- username: alicezuberg@vcconnect.edu.za
+- password: XUDVm:5ia*2F>M#
+
+## YouTube Video showcasing that my MVC app works:
+- https://youtu.be/rPhEqOJRVMw
+
+## Assumptions and constraints that were added for Sprint 2:
+- **Approval of claims:** It is assumed that the Programme Coordinator (PC) has to first approve a specific claim before the Academic Manager (AM) can approve it.
+- **Lecturer View:** It is assumed that the Lecturer should not have the ability to edit or delete but instead they can email HR to potentially delete their claim.
+- **Documents**: It is assumed that the upload of supporting documents for a certain claim is optional as some claims may not need such a requirement.
+- **Rejection of claims** It is assumed that when a claim is rejected, it should be removed from the database.
+
+## Users and Roles:
+- Users and roles have been set up, using Microsoft's AspNetCore Identities
+- There are 4 roles: Lecturer, Programme Coordinator, Academic Manager and HR
+
+## Overall local SQL Database Structure in SSMS:
+![image](https://github.com/user-attachments/assets/785601a6-03d7-4b2d-8d3b-6aae71f66bc3)
+
+### Focusing on Claims Table design structure as well it's connecion to the AspNetUsers table:
+![image](https://github.com/user-attachments/assets/cfaff95a-b065-41e8-b9a8-ba3e9128ae0a)
+
+![image](https://github.com/user-attachments/assets/9ba0805e-e14c-42f2-b017-c73f3b00e246)
+
+![image](https://github.com/user-attachments/assets/50cf192d-e39e-4abc-b005-81efde7b4082)
+
+
+## Explanation of Lecturer Claim View:
+- This view is where lecturers can view the details of the claims they have submitted (such as Hours Worked, hourly rate, the name of any supporting documents that may be there as well as a download link for said documents)
+- If they have not submitted any yet, they can simply do so by pressing the viewable 'Submit Claim' button.
+- After submitting a claim, details related to the claim will populate the table and the user will be provided with a view button next to the claim to view it's details in a better way.
+- When a specific lecturer is signed in to the CMCS, the Lecture Claim View will only display the claims that they have submitted so not all claims submitted by all lecturers.
+
+## Explanation of Submit Claim View:
+- When a lecturer presses the 'Submit Claim' button they will be taken to this view.
+- This view allows them to enter details for the claim such as Hours Worked, Any additional notes they may have as well as potential supporting documents they would like to upload.
+- Once details have been entered and a document has been selected or not, the lecturer can then press the 'Submit' button to actually submit their claim, redirecting them back to the LecturerClaim view as well as populating it with any claims they may submit
+- There is validation to ensure that the lecturer's inputs are correctly formatted before storing them in their respective fields in the Claims table in the local SQL database.
+
+## Explanation of Pending Claim View:
+- This view displays all submitted claims that have a status of "Pending" to the PC and AM as well as providing them with 'Approve' and 'Reject' buttons, each triggering their respective action methods in the ClaimsController.
+- When a claim's status changes either as a result of the claim being approved or rejected, it will no longer show up in this view.
+
+### Approve Claim Action Method:
+- For a claim to be 'approved', both the PC and AM must approve the claim but the PC has first approve of the claim before the AM can approve it.
+- 
+#### There are several error-handling cases for this method:
+- If the PC approves of a claim and the AM approves of the same claim, the claim is approved and its status is changed to "Approved" (this is then reflected in the database also)
+- If the PC has already approved of claim and tries to approve it again, they will be taken to a view, alerting them that they have already approved the claim.
+- If the AM tries to approve a claim before the PC does, an error message view will be returned, alerting them that they should wait for the PC to approve it first before also approving of it themselves.
+- If the AM approves a claim that has been approved by the PC, a success message view will be returned, letting them know that the claim is now fully approved since both the PC and AM approved it - the claim status is set to "Approved" as a result.
+
+### Reject Claim Action Method:
+- For a claim to be "Rejected", either the PC or AM must reject the claim.
+- Currently, when a claim is rejected, its status is changed to "Rejected" which is reflected in the database.
+- As a result of it being rejected, the claim is then removed from the database as there is no longer a need for it.
+
+----------------------
+
+# Sprint 1 - Part 1 Project Documentation:
 ## Overview:
 This Contract Monthly Claims System (CMCS) allows lecturers to submit claims (by entering details such as the hours they have worked, their hourly rate and any additional notes as well as allowing them to select a file or two to support theirn claim) for approval. The app tracks whether their claim has been approved or rejected.  A coordinator, manager and HR member can approve or reject a lecturer's claim. A HR member can also manage a lecturer's data if they have received an update request from them. The app is built using the MVC (Model-View-Controller) architecture in C#.
 
@@ -196,48 +274,3 @@ This Contract Monthly Claims System (CMCS) allows lecturers to submit claims (by
 
 # Commits:
 ![image](https://github.com/user-attachments/assets/780543d0-0255-428e-96d8-cd617074613f)
-
-# Sprint 2:
-
-## Login Details of Users:
-### Lecturer:
-username: fshaik@vcconnect.edu.za
-password: 4)PBuM_Px9s43M@
-
-### Another Lecturer:
-username: mikewazowski@vcconnect.edu.za
-password: P?nC5S]ZryRw8Gj
-
-## Programme Coordinator:
-username: EbrahimAdams@vcconnect.edu.za
-password: A%2jER&6kecU>]2
-
-## Academic Manager:
-username: jamesmay@vcconnect.edu.za
-password: mN)fc,}3fNWg}Zh
-
-## HR:
-username: alicezuberg@vcconnect.edu.za
-password: XUDVm:5ia*2F>M#
-
-## Assumptions that have remained the same:
-- **Uploading of Documents:** The app would ensure that documents are stored securely and are connected to the corresponding claim. 
- - **Data Integrity**: It is assumed that all input data  (such as hours worked and hourly rate) will be provided in a proper format and will be validated before being stored in the database.
-- **Pending Claims**  Coordinators and managers will have a separate view where all pending claims are displayed, along with the necessary details and options will be provided to allow them to verify or reject these claims
-- **Checking of claims against predefined criteria:** The app assumes that feature is a filtering feature that allows coordinators and managers to search for or display specific claims that meet a certain criteria.
-- **Approval of claims**
-
-
-## Users and Roles:
-- Users and roles have been set up, using Microsoft's AspNetCore Identities
-- There are 4 roles: Lecturer, Programme Coordinator, Academic Manager and HR
-
-## Overall Database Structure:
-![image](https://github.com/user-attachments/assets/785601a6-03d7-4b2d-8d3b-6aae71f66bc3)
-
-### Focusing on Claims Table design structure as well it's connecion to the AspNetUsers table:
-![image](https://github.com/user-attachments/assets/cfaff95a-b065-41e8-b9a8-ba3e9128ae0a)
-
-![image](https://github.com/user-attachments/assets/9ba0805e-e14c-42f2-b017-c73f3b00e246)
-
-![image](https://github.com/user-attachments/assets/50cf192d-e39e-4abc-b005-81efde7b4082)
